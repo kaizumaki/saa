@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+  wordpress:
+    image: wordpress
+    env_file:
+      - ./env/development/.env
+    restart: always
+    volumes:
+      - ./themes/SAA:/var/www/html/wp-content/themes/SAA
+    ports:
+      - '8080:80'
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    command: mysqld --user=mysql --innodb-use-native-aio=0
+    env_file:
+      - ./env/development/.env
+    restart: always
+    volumes:
+      - ./db-datadir:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+    ports:
+      - '3306:3307'
