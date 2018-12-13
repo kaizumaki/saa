@@ -8,6 +8,7 @@ services:
       - ./env/development/.env
     restart: always
     volumes:
+      - ./wordpress:/var/www/html
       - ./themes/SAA:/var/www/html/wp-content/themes/SAA
     ports:
       - '8080:80'
