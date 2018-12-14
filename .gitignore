@@ -11,5 +11,4 @@ yarn-error.log*
 !.gitkeep
 
 /env
-/ssl-certs
 /wordpress

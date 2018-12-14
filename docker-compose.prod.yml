@@ -4,6 +4,9 @@ services:
 
   wordpress:
     image: wordpress
+    container_name: wp
+    hostname: test
+    domainname: kaizumaki.net
     env_file:
       - ./env/production/.env
     restart: always
@@ -25,22 +28,4 @@ services:
       - ./db-datadir:/var/lib/mysql
       - ./sql:/docker-entrypoint-initdb.d
     ports:
-      - '3306:3307'
-
-  https-portal:
-    image: steveltn/https-portal:1
-    ports:
-      - '80:80'
-      - '443:443'
-    restart: always
-    environment:
-      DOMAINS: >-
-        test.kaizumaki.net -> http://wordpress:8080,
-#      STAGE: 'production'
-#      FORCE_RENEW: 'true'
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./ssl-certs:/var/lib/https-portal
-#      - ./nginx/ssl/ssl.conf:/var/lib/nginx-conf/test.kaizumaki.net.ssl.conf.erb:ro
-    depends_on:
-      - wordpress
+      - '3307:3307'
